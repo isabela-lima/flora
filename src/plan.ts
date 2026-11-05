@@ -7,7 +7,15 @@ export interface FloraConfig {
   horas_semana: number;
   dias: Weekday[];
   minutos_sessao: number;
+  /** Pastas do vault, relativas ao flora.json. Úteis para usar um vault que já existe. */
+  pastas?: Partial<Pastas>;
   concurso: Concurso;
+}
+
+export interface Pastas {
+  disciplinas: string;
+  sessoes: string;
+  erros: string;
 }
 
 export type Fase = "diagnostico" | "estudo" | "revisao";

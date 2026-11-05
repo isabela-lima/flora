@@ -3,12 +3,12 @@ import path from "node:path";
 
 import { totalQuestoes, type Concurso } from "./concurso.js";
 import { formatBR, type Weekday } from "./dates.js";
-import { renderPlano, type FloraConfig } from "./plan.js";
+import { renderPlano, type FloraConfig, type Pastas } from "./plan.js";
 import { dominio, proximaRevisao, type Atividade, type DisciplinaEstado, type Registro } from "./routine.js";
 import { parseFrontmatter } from "./validate.js";
 
 export const CONFIG_FILE = "flora.json";
-export const PASTAS = { disciplinas: "Disciplinas", sessoes: "Sessões", erros: "Erros" } as const;
+export const PASTAS: Pastas = { disciplinas: "Disciplinas", sessoes: "Sessões", erros: "Erros" };
 
 export interface OpcoesInicio {
   inicio: string;
@@ -55,6 +55,7 @@ export async function iniciarVault(dir: string, concurso: Concurso, opcoes: Opco
 export interface Vault {
   dir: string;
   config: FloraConfig;
+  pastas: Pastas;
   disciplinas: DisciplinaEstado[];
   registros: Registro[];
 }
@@ -67,24 +68,36 @@ export async function carregarVault(dir: string): Promise<Vault> {
     throw new Error(`não encontrei ${CONFIG_FILE} em ${dir}. Rode \`flora iniciar\` primeiro ou use --vault.`);
   }
 
+  const pastas: Pastas = { ...PASTAS, ...config.pastas };
+
+  // Cada disciplina do concurso é casada com uma nota da pasta pelo campo
+  // `disciplina` do frontmatter ou, na falta dele, pelo nome do arquivo.
+  const notas = new Map<string, { arquivo: string; content: string }>();
+  const arquivosDisciplinas = await readdir(path.join(dir, pastas.disciplinas)).catch(() => [] as string[]);
+  for (const file of arquivosDisciplinas.filter((f) => f.endsWith(".md")).sort()) {
+    const arquivo = path.join(pastas.disciplinas, file);
+    const content = await readFile(path.join(dir, arquivo), "utf8");
+    const nome = str(parseFrontmatter(content).disciplina) ?? file.slice(0, -3);
+    if (!notas.has(normalize(nome))) notas.set(normalize(nome), { arquivo, content });
+  }
+
   const disciplinas: DisciplinaEstado[] = [];
   for (const d of config.concurso.disciplinas) {
-    const arquivo = path.join(PASTAS.disciplinas, `${d.nome}.md`);
-    const content = await readFile(path.join(dir, arquivo), "utf8").catch(() => undefined);
-    if (content === undefined) throw new Error(`falta a nota ${arquivo}`);
-    const data = parseFrontmatter(content);
+    const nota = notas.get(normalize(d.nome));
+    if (!nota) throw new Error(`não encontrei a nota da disciplina "${d.nome}" em ${pastas.disciplinas}/`);
+    const data = parseFrontmatter(nota.content);
     disciplinas.push({
       nome: d.nome,
       questoes: d.questoes,
       status: String(data.status ?? "diagnosticar"),
       dominio: Number(data.dominio ?? 0),
-      topicos: lerTopicos(content),
-      arquivo,
+      topicos: lerTopicos(nota.content),
+      arquivo: nota.arquivo,
     });
   }
 
   const registros: Registro[] = [];
-  for (const pasta of [PASTAS.sessoes, PASTAS.erros]) {
+  for (const pasta of [pastas.sessoes, pastas.erros]) {
     const files = await readdir(path.join(dir, pasta)).catch(() => [] as string[]);
     for (const file of files.filter((f) => f.endsWith(".md")).sort()) {
       const arquivo = path.join(pasta, file);
@@ -95,14 +108,14 @@ export async function carregarVault(dir: string): Promise<Vault> {
         tipo: data.tipo,
         data: str(data.data),
         disciplina: str(data.disciplina),
-        topico: str(data.topico),
+        topico: str(data.topico) ?? str(data.assunto),
         aproveitamento: typeof data.aproveitamento === "number" ? data.aproveitamento : undefined,
         proxima_revisao: str(data.proxima_revisao),
         status: str(data.status),
       });
     }
   }
-  return { dir, config, disciplinas, registros };
+  return { dir, config, pastas, disciplinas, registros };
 }
 
 export interface NovaSessao {
@@ -139,10 +152,10 @@ export async function registrarSessao(vault: Vault, sessao: NovaSessao): Promise
   const revisao = proximaRevisao(sessao.data, aproveitamento);
   const base = `${sessao.data} ${disciplina.nome}`;
   let nome = `${base}.md`;
-  for (let n = 2; await exists(path.join(vault.dir, PASTAS.sessoes, nome)); n++) nome = `${base} ${n}.md`;
-  const arquivo = path.join(PASTAS.sessoes, nome);
+  for (let n = 2; await exists(path.join(vault.dir, vault.pastas.sessoes, nome)); n++) nome = `${base} ${n}.md`;
+  const arquivo = path.join(vault.pastas.sessoes, nome);
 
-  await mkdir(path.join(vault.dir, PASTAS.sessoes), { recursive: true });
+  await mkdir(path.join(vault.dir, vault.pastas.sessoes), { recursive: true });
   await writeFile(path.join(vault.dir, arquivo), `---
 tipo: sessao
 data: ${sessao.data}
