@@ -39,7 +39,7 @@ O Flora abre na página inicial. Clique em **Comece aqui** e escolha como usar.
 | --- | --- | --- |
 | **1. Só Obsidian** | Você segue o roteiro de aula, registra cada sessão numa nota e o painel mostra as revisões vencidas, o caderno de erros e a contagem até a prova. | nada além do Obsidian |
 | **2. Com assistente de IA** | Você abre a pasta no app do Claude ou do Codex e conversa: `/configurar` monta seu concurso, `/aula` prepara a aula, e o resultado contado no chat é registrado sozinho. | assinatura do Claude ou do ChatGPT |
-| **3. Automático** | A aula fica pronta toda manhã, seguindo os blocos de estudo do seu calendário. | nível 2 e uma automação agendada |
+| **3. Automático** | Peça `/automatizar` e o assistente agenda tudo: a aula fica pronta toda manhã, a semana se fecha sozinha e você é avisada quando sair edital. | nível 2 |
 
 Passo a passo dentro do vault: `Comece aqui.md`,
 [`Sistema/Usar com um assistente de IA.md`](Sistema/Usar%20com%20um%20assistente%20de%20IA.md) e
@@ -57,6 +57,7 @@ Passo a passo dentro do vault: `Comece aqui.md`,
 | `/edital` | confere retificações e o que mudou |
 | `/simulado` | planeja ou corrige um simulado |
 | `/revisao-semanal` | fecha a semana e ajusta o foco |
+| `/automatizar` | agenda a aula diária, a revisão semanal e o aviso de edital no seu app |
 
 As instruções ficam em [`AGENTS.md`](AGENTS.md) e
 [`Sistema/Agente/`](Sistema/Agente/), em texto aberto: dá para ler, ajustar e usar

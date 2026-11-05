@@ -32,9 +32,10 @@ passo está no [[Método de estudo]].
 > Passo a passo: [[Sistema/Usar com um assistente de IA]].
 
 > [!flora-card-method] 3. Tudo automático
-> A aula fica pronta toda manhã, antes de você acordar.
+> Peça `/automatizar` ao assistente: a aula fica pronta toda manhã, a semana
+> se fecha sozinha e você é avisada quando sair edital.
 >
-> Como fazer: [[Sistema/Automatizar a rotina]].
+> Detalhes: [[Sistema/Automatizar a rotina]].
 
 ## O que tem aqui
 

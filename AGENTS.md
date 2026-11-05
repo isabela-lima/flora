@@ -19,15 +19,18 @@ indicado e siga-o do início ao fim:
 | `/edital` | `Sistema/Agente/edital.md` | conferir retificações e mudanças no edital |
 | `/simulado` | `Sistema/Agente/simulado.md` | planejar ou corrigir um simulado |
 | `/revisao-semanal` | `Sistema/Agente/revisao-semanal.md` | fechar a semana |
+| `/automatizar` | `Sistema/Agente/automatizar.md` | agendar a aula diária, a revisão semanal e o aviso de edital |
 
 Se a pessoa contar um resultado sem usar comando (“acertei 7 de 10 em crase”),
-aplique `/registrar`.
+aplique `/registrar`. Se pedir para a rotina acontecer sozinha (“quero a aula
+pronta todo dia”), aplique `/automatizar`.
 
 ## Primeiro uso
 
 Se a pasta `Private/` não existir, copie `.flora/privado/` para `Private/`
 antes de qualquer outra coisa, sem sobrescrever arquivos existentes. Depois,
 se ainda não houver um módulo ativo próprio da pessoa, sugira `/configurar`.
+Depois de configurar, ofereça `/automatizar`.
 
 ## Onde estão as coisas
 

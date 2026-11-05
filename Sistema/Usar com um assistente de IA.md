@@ -35,6 +35,7 @@ Os dois funcionam do mesmo jeito: as instruções do Flora estão no arquivo
 | `/plano` | refaz o plano até a prova |
 | `/banca` | mapeia o estilo e as provas antigas da banca |
 | `/edital` | confere se saiu retificação |
+| `/automatizar` | agenda a aula diária, a revisão semanal e o aviso de edital |
 
 Você nunca precisa editar as notas à mão: leia a aula, responda de cabeça ou no
 papel e conte o resultado no chat.
