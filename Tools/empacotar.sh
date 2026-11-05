@@ -25,6 +25,10 @@ rm -rf "$pasta/.github" "$pasta/.claude/settings.local.json" "$pasta/Tools/empac
 cp -R "$pasta/.flora/privado" "$pasta/Private"
 find "$pasta/Private" -name .gitkeep -delete
 
+# Layout inicial com a Home aberta. Na primeira abertura o Obsidian fica em modo
+# restrito (plugins desligados), então o plugin Homepage ainda não roda.
+cp "$pasta/.flora/workspace.json" "$pasta/.obsidian/workspace.json"
+
 for item in "${plugins[@]}"; do
   IFS="|" read -r id repo versao licenca <<<"$item"
   destino="$pasta/.obsidian/plugins/$id"
