@@ -6,7 +6,7 @@ se fecha sozinha e você é avisada quando sair edital ou retificação.
 
 ## O jeito fácil: peça ao assistente
 
-Abra a pasta do Flora no app do Codex ou do Claude e digite:
+Abra a pasta do Flora no seu assistente de IA e digite:
 
 ```text
 /automatizar
@@ -35,19 +35,20 @@ segue as revisões vencidas e o plano.
 
 Os pedidos agendados ficam em `Sistema/Agente/automatizar.md`. Em resumo:
 
-- **Codex:** crie uma automação diária com o pedido “No vault Flora em
+- **No seu assistente:** se ele tiver automações, tarefas agendadas ou rotinas
+  (Codex, Claude e outros têm), crie uma diária com o pedido “No vault Flora em
   <sua pasta>, siga Sistema/Agente/aula.md para preparar a aula de hoje” e
   marque para avisar só quando falhar.
-- **Claude:** peça “Agende uma tarefa diária às 6h que siga /aula neste vault”.
 - **Linha de comando (avançado):** com o `cron` do macOS ou Linux
   (`crontab -e`), trocando o caminho pela sua pasta:
 
   ```cron
-  0 6 * * 1-6 cd "$HOME/Flora" && claude -p "Siga Sistema/Agente/aula.md para preparar a aula de hoje."
+  0 6 * * 1-6 cd "$HOME/Flora" && claude -p "Siga Sistema/Agente/aula.md para preparar a aula de hoje." --allowedTools "Read,Write,Edit,Glob,Grep,WebFetch,WebSearch"
   ```
 
-  Para o Codex, troque o comando por
-  `codex exec "Siga Sistema/Agente/aula.md para preparar a aula de hoje."`. No
+  O `--allowedTools` deixa o assistente editar as notas e consultar a web sem
+  pedir aprovação, mas sem acesso ao terminal. Para outro assistente, use o
+  modo não interativo dele com permissões equivalentes. No
   Windows, use o Agendador de Tarefas com o mesmo comando.
 
 ## Se der errado

@@ -5,7 +5,8 @@ organiza o que estudar, quando revisar e onde você erra, com um método baseado
 em pesquisa: recuperação ativa, questões, correção por causa do erro e revisão
 espaçada.
 
-Se quiser, um assistente de IA (Claude ou Codex) faz o trabalho chato por você:
+Se quiser, um assistente de IA que trabalhe com arquivos (Claude, Codex, Gemini, Cursor ou outro) faz o
+trabalho chato por você:
 lê o edital do seu concurso, monta o plano, prepara a aula do dia e registra
 seus resultados.
 
@@ -38,7 +39,7 @@ O Flora abre na página inicial. Clique em **Comece aqui** e escolha como usar.
 | | Como funciona | Precisa de |
 | --- | --- | --- |
 | **1. Só Obsidian** | Você segue o roteiro de aula, registra cada sessão numa nota e o painel mostra as revisões vencidas, o caderno de erros e a contagem até a prova. | nada além do Obsidian |
-| **2. Com assistente de IA** | Você abre a pasta no app do Claude ou do Codex e conversa: `/configurar` monta seu concurso, `/aula` prepara a aula, e o resultado contado no chat é registrado sozinho. | assinatura do Claude ou do ChatGPT |
+| **2. Com assistente de IA** | Você abre a pasta no seu assistente de IA e conversa: `/configurar` monta seu concurso, `/aula` prepara a aula, e o resultado contado no chat é registrado sozinho. | um assistente de IA que edite arquivos (a maioria tem plano pago) |
 | **3. Automático** | Peça `/automatizar` e o assistente agenda tudo: a aula fica pronta toda manhã, a semana se fecha sozinha e você é avisada quando sair edital. | nível 2 |
 
 Passo a passo dentro do vault: `Comece aqui.md`,

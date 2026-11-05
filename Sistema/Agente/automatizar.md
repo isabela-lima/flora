@@ -25,7 +25,16 @@ Pergunte, uma coisa por vez:
 ## 2. Montar os pedidos
 
 Use o caminho absoluto desta pasta (`<PASTA>`), porque a automação pode rodar
-fora dela. Os pedidos agendados são exatamente estes:
+fora dela.
+
+**Antes, confira se a pasta está num lugar fixo.** Se ela estiver numa pasta
+temporária (`/tmp`, `/private/tmp`, `/var/folders`, `AppData\Local\Temp`) ou
+dentro de Downloads de um zip ainda não movido, avise: a pessoa deve mover o
+vault para Documentos ou para a nuvem dela e usar o novo caminho. Uma automação
+apontando para uma pasta temporária para de funcionar quando o computador
+reinicia.
+
+Os pedidos agendados são exatamente estes:
 
 | Automação | Frequência | Pedido |
 | --- | --- | --- |
@@ -38,14 +47,27 @@ fora dela. Os pedidos agendados são exatamente estes:
 Use a primeira opção disponível, nesta ordem:
 
 1. **Ferramenta do próprio app** para criar automações, tarefas agendadas ou
-   rotinas (o Codex e o Claude têm). Crie uma por automação, com nome claro
-   (“Flora — aula diária”) e, se houver a opção, avisos só em caso de falha.
+   rotinas, se o app em que você está tiver uma. Crie uma por automação, com
+   nome claro (“Flora — aula diária”) e, se houver a opção, avisos só em caso
+   de falha. **Só use a ferramenta se a tarefa criada for permanente e rodar no
+   computador da pessoa, com acesso a esta pasta.** Tarefas que somem quando a
+   conversa fecha, que expiram em poucos dias ou que rodam na nuvem sem ver os
+   arquivos locais não servem: nesse caso, vá para a opção 2 e explique por quê.
 2. **Interface do app:** se você não puder criar sozinho, guie a pessoa passo a
    passo: onde clicar, qual nome dar, qual frequência escolher e o pedido exato
    para colar (copie da tabela acima, já com o caminho).
 3. **Agendador do sistema** (`cron` no macOS ou Linux, Agendador de Tarefas no
    Windows), só se a pessoa preferir e houver um assistente de linha de comando
-   instalado. Mostre a linha e peça confirmação antes de instalar.
+   instalado. Mostre a linha e peça confirmação antes de instalar. O comando
+   roda sem ninguém para aprovar permissões, então ele precisa liberar só o
+   necessário: ler e editar arquivos e acessar a web, **sem terminal**. Para o
+   Claude, por exemplo:
+   `claude -p "<pedido>" --allowedTools "Read,Write,Edit,Glob,Grep,WebFetch,WebSearch"`.
+   Para outros assistentes, use a opção equivalente do modo não interativo e
+   confira na documentação dele.
+
+Se a pessoa não puder responder (por exemplo, quando você roda sem conversa),
+use os padrões da seção 1 e diga quais usou.
 
 Nunca crie automações que a pessoa não aprovou e não altere automações que já
 existam para outros fins.

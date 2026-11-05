@@ -6,12 +6,13 @@ a aula do dia e registra seus resultados nas notas.
 ## O que você precisa
 
 - Esta pasta no seu computador (a mesma que você abriu no Obsidian).
-- Um destes apps, com assinatura:
-  - **Claude** (app para computador, aba **Code**), ou
-  - **Codex** (app da OpenAI para computador).
+- Um assistente de IA que consiga **abrir uma pasta e editar arquivos**. Por
+  exemplo: Codex (da OpenAI, entra com a conta do ChatGPT), Claude (aba Code),
+  Gemini CLI, Cursor ou GitHub Copilot. O chat comum do navegador não serve,
+  porque não mexe nos arquivos do seu computador.
 
-Os dois funcionam do mesmo jeito: as instruções do Flora estão no arquivo
-`AGENTS.md`, que qualquer assistente lê.
+Todos funcionam do mesmo jeito: as instruções do Flora estão no arquivo
+`AGENTS.md`, em texto simples, e qualquer assistente consegue segui-las.
 
 ## Passo a passo
 

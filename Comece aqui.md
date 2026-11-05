@@ -25,7 +25,7 @@ passo está no [[Método de estudo]].
 > O painel [[Private/Dashboard|Hoje]] mostra as revisões vencidas.
 
 > [!flora-card-lesson] 2. Com um assistente de IA
-> Abra esta pasta no app do Claude ou do Codex e digite `/configurar`. O
+> Abra esta pasta no seu assistente de IA (Claude, Codex, Gemini, Cursor ou outro) e digite `/configurar`. O
 > assistente pergunta seu concurso e monta tudo. Depois é só `/aula` todo dia e
 > contar o resultado no chat.
 >
@@ -52,7 +52,8 @@ passo está no [[Método de estudo]].
 **Preciso saber programar?** Não. Os níveis 1 e 2 não usam terminal.
 
 **Preciso pagar alguma coisa?** O Obsidian e o Flora são gratuitos. O
-assistente de IA do nível 2 exige uma assinatura do Claude ou do ChatGPT.
+assistente de IA do nível 2 precisa conseguir abrir uma pasta e editar
+arquivos, e a maioria desses assistentes tem plano pago.
 
 **Meu concurso não é a ALEPA. E agora?** No nível 2, `/configurar` monta o seu.
 No nível 1, copie a pasta `ALEPA/` e troque disciplinas e tópicos pelos do seu

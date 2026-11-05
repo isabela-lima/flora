@@ -52,6 +52,8 @@ Frontmatter: `tipo: aula-do-dia`, `modulo: <SIGLA>`, `modulo_id`, `data`,
 `status: pronto`, `gerado_em` (data e hora local), `fonte_evento` (se veio do
 calendário), `fontes` e `questoes` só com os IDs Flora efetivamente usados,
 `cssclasses: [flora-module]`, e `itens`, `acertos` e `proxima_revisao` vazios.
+Para `data` e `gerado_em`, use o relógio do sistema; se não tiver acesso a ele,
+use a data que a pessoa ou a automação informar e não invente o horário.
 
 Corpo, nesta ordem:
 
