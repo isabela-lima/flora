@@ -1,0 +1,33 @@
+{
+  "name": "flora-estudos",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "flora": "node bin/flora.js",
+    "test": "node --import tsx --test test/*.test.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "26.6.6",
+    "typescript": "7.0.2"
+  },
+  "allowScripts": {
+    "esbuild@0.28.2": true
+  },
+  "description": "Rotina de estudos para concursos em arquivos Markdown, com plano, aulas do dia e revisões espaçadas.",
+  "license": "MIT",
+  "bin": {
+    "flora": "bin/flora.js"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/isabela-lima/flora.git"
+  },
+  "dependencies": {
+    "tsx": "4.23.15"
+  }
+}

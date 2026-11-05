@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://flora.local/schemas/questao.schema.json",
+  "title": "Questão de estudo",
+  "type": "object",
+  "required": ["schema", "id", "tipo", "origem", "assunto", "oficial", "validacao", "fontes"],
+  "properties": {
+    "schema": { "const": "flora/questao@1" },
+    "id": { "type": "string", "minLength": 1 },
+    "tipo": { "const": "questao" },
+    "origem": {
+      "type": "string",
+      "enum": ["oficial-banca", "oficial-outra-banca", "adaptada", "autoral-fundamentada"]
+    },
+    "assunto": { "type": "string", "minLength": 1 },
+    "oficial": { "type": "boolean" },
+    "banca": { "type": "string" },
+    "concurso": { "type": "string" },
+    "cargo": { "type": "string" },
+    "ano": { "type": "integer", "minimum": 1900 },
+    "numero": {
+      "anyOf": [
+        { "type": "integer" },
+        { "type": "string", "minLength": 1 }
+      ]
+    },
+    "pagina": { "type": "integer", "minimum": 1 },
+    "caderno_url": { "type": "string", "format": "uri" },
+    "gabarito_url": { "type": "string", "format": "uri" },
+    "gabarito": { "type": "string", "minLength": 1 },
+    "validacao": {
+      "type": "string",
+      "enum": ["pendente", "fonte-conferida", "conferida", "anulada"]
+    },
+    "verificado_em": { "type": "string", "format": "date" },
+    "fontes": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "modulos": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true
+    }
+  },
+  "additionalProperties": true
+}

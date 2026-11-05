@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://flora.local/schemas/fonte.schema.json",
+  "title": "Fonte de estudo",
+  "type": "object",
+  "required": ["schema", "id", "tipo", "titulo", "categoria", "referencia", "validacao"],
+  "properties": {
+    "schema": { "const": "flora/fonte@1" },
+    "id": { "type": "string", "minLength": 1 },
+    "tipo": { "const": "fonte" },
+    "titulo": { "type": "string", "minLength": 1 },
+    "categoria": {
+      "type": "string",
+      "enum": ["edital", "lei", "norma", "documentacao", "artigo", "livro", "curso", "video", "prova", "gabarito", "outro"]
+    },
+    "referencia": { "type": "string", "minLength": 1 },
+    "url": { "type": "string", "format": "uri" },
+    "validacao": {
+      "type": "string",
+      "enum": ["pendente", "conferida", "desatualizada"]
+    },
+    "verificado_em": { "type": "string", "format": "date" },
+    "observacoes": { "type": "string" }
+  },
+  "additionalProperties": true
+}

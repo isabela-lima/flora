@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://flora.local/schemas/modulo.schema.json",
+  "title": "Módulo de estudo",
+  "type": "object",
+  "required": ["schema", "id", "tipo", "titulo", "natureza", "status"],
+  "properties": {
+    "schema": { "const": "flora/modulo@1" },
+    "id": { "type": "string", "minLength": 1 },
+    "tipo": { "const": "modulo" },
+    "titulo": { "type": "string", "minLength": 1 },
+    "natureza": {
+      "type": "string",
+      "enum": ["concurso", "curso", "certificacao", "habilidade", "assunto", "projeto", "livre"]
+    },
+    "status": {
+      "type": "string",
+      "enum": ["planejamento", "ativo", "pausado", "concluido", "arquivado"]
+    },
+    "objetivo": { "type": "string" },
+    "instituicao": { "type": "string" },
+    "cargo": { "type": "string" },
+    "banca": { "type": "string" },
+    "data_inicio": { "type": "string", "format": "date" },
+    "data_alvo": { "type": "string", "format": "date" },
+    "assuntos": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true
+    }
+  },
+  "additionalProperties": true
+}
