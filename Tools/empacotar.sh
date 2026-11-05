@@ -32,8 +32,12 @@ for item in "${plugins[@]}"; do
   for arquivo in main.js manifest.json styles.css; do
     curl -fsSL "https://github.com/$repo/releases/download/$versao/$arquivo" -o "$destino/$arquivo"
   done
-  curl -fsSL "https://raw.githubusercontent.com/$repo/$versao/LICENSE" -o "$destino/LICENSE" \
-    || printf 'Licença %s. Código-fonte: https://github.com/%s\n' "$licenca" "$repo" >"$destino/LICENSE"
+  # O nome do arquivo de licença varia (LICENSE, LICENSE.md, LICENSE.TXT); a API informa qual é.
+  caminho="$(curl -fsSL "https://api.github.com/repos/$repo/license" | python3 -c 'import json,sys; print(json.load(sys.stdin)["path"])')"
+  curl -fsSL "https://raw.githubusercontent.com/$repo/$versao/$caminho" -o "$destino/LICENSE" || {
+    echo "Não consegui baixar a licença de $repo ($caminho na versão $versao)." >&2
+    exit 1
+  }
   printf '%s %s — %s — https://github.com/%s\n' "$id" "$versao" "$licenca" "$repo" >>"$pasta/.obsidian/plugins/CREDITOS.txt"
 done
 
