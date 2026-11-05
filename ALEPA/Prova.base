@@ -1,0 +1,23 @@
+filters:
+  and:
+    - file.path == "ALEPA/ALEPA.md"
+formulas:
+  dias: (prova - today()).days.round()
+  semanas: ((prova - today()).days / 7).round(1)
+properties:
+  note.cargo:
+    displayName: Cargo
+  note.prova:
+    displayName: Prova
+  formula.dias:
+    displayName: Dias até a prova
+  formula.semanas:
+    displayName: Semanas
+views:
+  - type: table
+    name: Contagem
+    order:
+      - note.cargo
+      - note.prova
+      - formula.dias
+      - formula.semanas

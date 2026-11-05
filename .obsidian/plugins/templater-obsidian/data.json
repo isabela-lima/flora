@@ -1,0 +1,35 @@
+{
+  "data_version": 2,
+  "command_timeout": 5,
+  "templates_folder": "Templates",
+  "templates_pairs": [],
+  "trigger_on_file_creation_mode": "folder",
+  "auto_jump_to_cursor": true,
+  "jump_to_cursor_after_file_name": false,
+  "shell_path": "",
+  "user_scripts_folder": "",
+  "folder_templates": [
+    {
+      "folder": "Private/ALEPA/Erros",
+      "template": "Templates/Erro.md"
+    },
+    {
+      "folder": "Private/ALEPA/Simulados",
+      "template": "Templates/Simulado.md"
+    },
+    {
+      "folder": "Private/ALEPA/Sessões",
+      "template": "Templates/Sessão de estudo.md"
+    },
+    {
+      "folder": "Private/Revisões semanais",
+      "template": "Templates/Revisão semanal.md"
+    }
+  ],
+  "file_templates": [],
+  "syntax_highlighting": true,
+  "syntax_highlighting_mobile": false,
+  "enabled_templates_hotkeys": [],
+  "startup_templates": [],
+  "ignore_folders_on_creation": []
+}

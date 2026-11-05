@@ -1,0 +1,62 @@
+filters:
+  and:
+    - file.inFolder("Private/ALEPA/Erros")
+    - tipo == "erro"
+formulas:
+  dias: if(proxima_revisao, (proxima_revisao - today()).days.round())
+properties:
+  file.name:
+    displayName: Erro
+  note.disciplina:
+    displayName: Disciplina
+  note.causa:
+    displayName: Causa
+  note.data:
+    displayName: Registrado em
+  note.proxima_revisao:
+    displayName: Revisar em
+  formula.dias:
+    displayName: Em dias
+  note.evidencias:
+    displayName: Evidências (de 2)
+views:
+  - type: table
+    name: Ativos
+    filters:
+      and:
+        - status != "resolvido"
+    order:
+      - file.name
+      - note.disciplina
+      - note.causa
+      - note.proxima_revisao
+      - formula.dias
+      - note.evidencias
+    sort:
+      - property: note.proxima_revisao
+        direction: ASC
+  - type: table
+    name: Por causa
+    filters:
+      and:
+        - status != "resolvido"
+    groupBy:
+      property: note.causa
+      direction: ASC
+    order:
+      - file.name
+      - note.disciplina
+      - note.proxima_revisao
+  - type: table
+    name: Resolvidos
+    filters:
+      and:
+        - status == "resolvido"
+    order:
+      - file.name
+      - note.disciplina
+      - note.causa
+      - note.data
+    sort:
+      - property: note.data
+        direction: DESC

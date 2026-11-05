@@ -9,19 +9,20 @@ permissions:
   contents: read
 
 jobs:
-  test:
+  validar:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: Tools/flora-validator
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: npm
+          cache-dependency-path: Tools/flora-validator/package-lock.json
       - run: npm ci
-      - run: npm run typecheck
       - run: npm test
-      - name: Smoke test da CLI
-        run: |
-          for id in $(node bin/flora.js concursos --json | node -e 'JSON.parse(require("fs").readFileSync(0,"utf8")).forEach(c=>console.log(c.id))'); do
-            node bin/flora.js iniciar "$RUNNER_TEMP/$id" --concurso "$id" --inicio 2026-01-05 --horas 10 --dias seg,qua,sex --sem-perguntas
-          done
+      - run: npm run typecheck
+      - name: Validar fontes e questões
+        run: npm run validate -- --json

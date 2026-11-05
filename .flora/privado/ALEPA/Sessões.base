@@ -1,0 +1,46 @@
+filters:
+  and:
+    - file.inFolder("Private/ALEPA/Sessões")
+formulas:
+  aproveitamento: if(itens && acertos >= 0, (acertos / itens * 100).round())
+properties:
+  file.name:
+    displayName: Sessão
+  note.data:
+    displayName: Data
+  note.disciplina:
+    displayName: Disciplina
+  note.itens:
+    displayName: Itens
+  note.acertos:
+    displayName: Acertos
+  formula.aproveitamento:
+    displayName: Aproveitamento (%)
+  note.proxima_revisao:
+    displayName: Revisar em
+views:
+  - type: table
+    name: Recentes
+    limit: 10
+    order:
+      - file.name
+      - note.disciplina
+      - note.itens
+      - note.acertos
+      - formula.aproveitamento
+      - note.proxima_revisao
+    sort:
+      - property: note.data
+        direction: DESC
+  - type: table
+    name: Por disciplina
+    groupBy:
+      property: note.disciplina
+      direction: ASC
+    order:
+      - file.name
+      - note.data
+      - formula.aproveitamento
+    sort:
+      - property: note.data
+        direction: DESC

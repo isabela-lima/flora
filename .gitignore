@@ -1,3 +1,38 @@
-node_modules/
+# macOS
 .DS_Store
-/tmp/
+.AppleDouble
+.LSOverride
+Icon
+._*
+.Spotlight-V100
+.Trashes
+.fseventsd
+.TemporaryItems
+
+# Obsidian: estado local de janelas e caches
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+.obsidian/cache/
+.trash/
+
+# Plugins: só as configurações vão para o Git; o código entra no zip da release
+.obsidian/plugins/*
+!.obsidian/plugins/homepage/
+!.obsidian/plugins/templater-obsidian/
+!.obsidian/plugins/obsidian-icon-folder/
+.obsidian/plugins/*/*
+!.obsidian/plugins/*/data.json
+
+# Temas: só o Flora
+.obsidian/themes/*
+!.obsidian/themes/Flora/
+
+# Dados pessoais de estudo. O modelo vazio fica em .flora/privado/
+/Private/
+
+# Ferramentas
+node_modules/
+/dist/
+*.tmp
+*.swp
+*~

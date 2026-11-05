@@ -1,0 +1,64 @@
+filters:
+  and:
+    - file.inFolder("Private/ALEPA")
+    - proxima_revisao
+    - status != "resolvido"
+formulas:
+  origem: 'if(tipo == "erro", "🩹 erro", if(tipo == "simulado", "⏱️ simulado", if(tipo == "sessao", "📖 sessão", "🌿 nota")))'
+  dias: (proxima_revisao - today()).days.round()
+  situacao: 'if(formula.dias < 0, "⚠️ atrasada", if(formula.dias == 0, "🔔 hoje", if(formula.dias <= 7, "📅 esta semana", "🕊️ depois")))'
+properties:
+  file.name:
+    displayName: Item
+  formula.origem:
+    displayName: Origem
+  note.disciplina:
+    displayName: Disciplina
+  note.proxima_revisao:
+    displayName: Revisar em
+  formula.dias:
+    displayName: Em dias
+  formula.situacao:
+    displayName: Situação
+views:
+  - type: table
+    name: Hoje e atrasadas
+    filters:
+      and:
+        - formula.dias <= 0
+    order:
+      - file.name
+      - formula.origem
+      - note.disciplina
+      - note.proxima_revisao
+      - formula.situacao
+    sort:
+      - property: note.proxima_revisao
+        direction: ASC
+  - type: table
+    name: Próximos 7 dias
+    filters:
+      and:
+        - formula.dias <= 7
+    order:
+      - file.name
+      - formula.origem
+      - note.disciplina
+      - note.proxima_revisao
+      - formula.dias
+      - formula.situacao
+    sort:
+      - property: note.proxima_revisao
+        direction: ASC
+  - type: table
+    name: Fila completa
+    order:
+      - file.name
+      - formula.origem
+      - note.disciplina
+      - note.proxima_revisao
+      - formula.dias
+      - formula.situacao
+    sort:
+      - property: note.proxima_revisao
+        direction: ASC

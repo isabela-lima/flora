@@ -1,0 +1,342 @@
+/* Flora Hub — componentes de painel para desktop e celular.
+   Lê as cores do tema Flora (--flora-*-rgb); os valores após a vírgula são
+   o fallback do modo claro, caso outro tema esteja ativo. */
+
+.flora-dashboard,
+.flora-module {
+  --flora-c-sage: var(--flora-sage-rgb, 74, 103, 65);
+  --flora-c-rose: var(--flora-rose-rgb, 150, 72, 84);
+  --flora-c-honey: var(--flora-honey-rgb, 154, 104, 16);
+  --flora-c-lavender: var(--flora-lavender-rgb, 88, 80, 140);
+  --flora-c-kraft: var(--flora-kraft-rgb, 140, 108, 66);
+  --flora-c-edge: var(--flora-edge, var(--background-modifier-border));
+  --flora-c-shadow: var(--flora-shadow, 0 8px 22px rgba(60, 50, 30, 0.08));
+  --file-line-width: 980px;
+}
+
+.flora-dashboard .markdown-preview-sizer,
+.flora-module .markdown-preview-sizer {
+  max-width: 980px;
+}
+
+/* Essas páginas já têm um H1 intencional e propriedades compactas. */
+.flora-dashboard .inline-title,
+.flora-module .inline-title,
+.flora-dashboard .metadata-container,
+.flora-module .metadata-container {
+  display: none;
+}
+
+.flora-dashboard h1,
+.flora-module h1 {
+  font-size: clamp(2.6rem, 6vw, 3.6rem);
+  line-height: 1.05;
+  margin-bottom: 0.25em;
+}
+
+.flora-dashboard h2,
+.flora-module h2 {
+  margin-top: 2rem;
+  border-bottom: 0;
+  font-variant: small-caps;
+  letter-spacing: 0.1em;
+  font-size: 1.05em;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+/* Nome da seção com uma linha que segue até a margem, como no Paperback */
+.flora-dashboard h2::after,
+.flora-module h2::after {
+  content: "";
+  flex: 1;
+  border-top: 1.5px dashed rgba(var(--flora-c-sage), 0.35);
+}
+
+.flora-dashboard a.internal-link,
+.flora-module a.internal-link {
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.flora-dashboard .callout,
+.flora-module .callout {
+  border-radius: 16px;
+}
+
+/* ── Hero: cartão de abertura com faixa de flores silvestres ─────────── */
+
+.callout[data-callout="flora-hero"] {
+  --callout-color: var(--flora-c-sage);
+  --callout-icon: lucide-flower-2;
+  padding: 1.1rem 1.3rem 4.2rem;
+  overflow: hidden;
+  /* O tom fica por cima de tudo, para a faixa de flores não deixar emenda. */
+  background:
+    linear-gradient(155deg, rgba(var(--flora-c-sage), 0.12), rgba(var(--flora-c-rose), 0.06) 70%),
+    linear-gradient(to bottom, var(--background-primary-alt), transparent 70%) bottom / 100% 72px no-repeat,
+    var(--flora-header-art, none) bottom / 100% 72px no-repeat,
+    var(--background-primary-alt);
+}
+
+.callout[data-callout="flora-hero"] .callout-title {
+  font-family: var(--flora-script, cursive);
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.callout[data-callout="flora-hero"] .callout-icon {
+  align-self: center;
+}
+
+/* ── Foco ─────────────────────────────────────────────────────────────── */
+
+.callout[data-callout="flora-focus"] {
+  --callout-color: var(--flora-c-sage);
+  --callout-icon: lucide-sprout;
+}
+
+/* ── Cards: linho bordado, dois por linha ─────────────────────────────── */
+
+.flora-dashboard .callout[data-callout^="flora-card"],
+.flora-module .callout[data-callout^="flora-card"] {
+  --callout-color: var(--flora-c-sage);
+  --callout-icon: lucide-arrow-up-right;
+  display: inline-block;
+  width: calc(50% - 0.65rem);
+  min-height: 125px;
+  margin: 0.35rem 0.45rem 0.35rem 0;
+  vertical-align: top;
+  box-sizing: border-box;
+  transition: transform 140ms ease, box-shadow 140ms ease;
+}
+
+.flora-dashboard .callout[data-callout^="flora-card"]:hover,
+.flora-module .callout[data-callout^="flora-card"]:hover {
+  transform: translateY(-2px) rotate(-0.25deg);
+}
+
+/* Links de ação como botõezinhos de tecido */
+:is(.flora-dashboard, .flora-module)
+  .callout:is([data-callout^="flora-card"], [data-callout="flora-focus"])
+  a.internal-link {
+  display: inline;
+  line-height: 2;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  padding: 0.2rem 0.75rem;
+  border: 1.5px dashed rgba(var(--callout-color), 0.45);
+  border-radius: 999px;
+  background: rgba(var(--callout-color), 0.1);
+}
+
+.callout[data-callout="flora-card-study"] {
+  --callout-color: var(--flora-c-sage);
+  --callout-icon: lucide-graduation-cap;
+}
+
+.callout[data-callout="flora-card-knowledge"] {
+  --callout-color: var(--flora-c-lavender);
+  --callout-icon: lucide-library;
+}
+
+.callout[data-callout="flora-card-project"] {
+  --callout-color: var(--flora-c-honey);
+  --callout-icon: lucide-kanban-square;
+}
+
+.callout[data-callout="flora-card-inbox"] {
+  --callout-color: var(--flora-c-kraft);
+  --callout-icon: lucide-inbox;
+}
+
+.callout[data-callout="flora-card-review"] {
+  --callout-color: var(--flora-c-lavender);
+  --callout-icon: lucide-refresh-cw;
+}
+
+.callout[data-callout="flora-card-error"] {
+  --callout-color: var(--flora-c-rose);
+  --callout-icon: lucide-triangle-alert;
+}
+
+.callout[data-callout="flora-card-progress"] {
+  --callout-color: var(--flora-c-sage);
+  --callout-icon: lucide-chart-no-axes-column-increasing;
+}
+
+.callout[data-callout="flora-card-sim"] {
+  --callout-color: var(--flora-c-honey);
+  --callout-icon: lucide-timer;
+}
+
+.callout[data-callout="flora-card-lesson"] {
+  --callout-color: var(--flora-c-sage);
+  --callout-icon: lucide-book-open-check;
+  width: calc(100% - 0.2rem) !important;
+  min-height: auto !important;
+}
+
+.callout[data-callout="flora-card-content"] {
+  --callout-color: var(--flora-c-lavender);
+  --callout-icon: lucide-list-checks;
+}
+
+.callout[data-callout="flora-card-private"] {
+  --callout-color: var(--flora-c-rose);
+  --callout-icon: lucide-lock-keyhole;
+}
+
+.callout[data-callout="flora-card-method"] {
+  --callout-color: var(--flora-c-sage);
+  --callout-icon: lucide-route;
+}
+
+.callout[data-callout="flora-card-template"] {
+  --callout-color: var(--flora-c-kraft);
+  --callout-icon: lucide-copy-plus;
+}
+
+/* Disciplinas */
+.callout[data-callout="flora-card-pt"] {
+  --callout-color: var(--flora-c-rose);
+  --callout-icon: lucide-languages;
+}
+
+.callout[data-callout="flora-card-law"] {
+  --callout-color: var(--flora-c-lavender);
+  --callout-icon: lucide-scale;
+}
+
+.callout[data-callout="flora-card-logic"] {
+  --callout-color: var(--flora-c-honey);
+  --callout-icon: lucide-brain;
+}
+
+.callout[data-callout="flora-card-it"] {
+  --callout-color: var(--flora-c-kraft);
+  --callout-icon: lucide-monitor;
+}
+
+.callout[data-callout="flora-card-code"] {
+  --callout-color: var(--flora-c-sage);
+  --callout-icon: lucide-code-xml;
+  width: calc(100% - 0.2rem) !important;
+  min-height: auto !important;
+}
+
+/* Cards pessoais ganham o xadrez rosado de toalha de piquenique */
+.callout:is([data-callout="flora-card-private"], [data-callout="flora-private"]) {
+  background:
+    repeating-linear-gradient(0deg, rgba(var(--flora-c-rose), 0.05) 0 12px, transparent 12px 24px),
+    repeating-linear-gradient(90deg, rgba(var(--flora-c-rose), 0.05) 0 12px, transparent 12px 24px),
+    var(--background-primary-alt);
+}
+
+/* ── Números: etiquetas kraft ─────────────────────────────────────────── */
+
+.flora-dashboard .callout[data-callout="flora-stat"],
+.flora-module .callout[data-callout="flora-stat"] {
+  --callout-color: var(--flora-c-kraft);
+  --callout-icon: lucide-dot;
+  display: inline-block;
+  width: calc(33.333% - 0.65rem);
+  margin: 0.25rem 0.42rem 0.25rem 0;
+  vertical-align: top;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.callout[data-callout="flora-stat"] .callout-icon {
+  display: none;
+}
+
+.callout[data-callout="flora-stat"] .callout-title {
+  justify-content: center;
+  color: var(--text-accent);
+  font-family: var(--flora-script, inherit);
+  font-size: 1.7rem;
+  font-weight: 700;
+  line-height: 1.15;
+  text-wrap: balance;
+}
+
+.callout[data-callout="flora-stat"] .callout-title-inner {
+  min-width: 0;
+}
+
+.callout[data-callout="flora-stat"] .callout-content {
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  font-style: italic;
+}
+
+/* ── Privado e vazio ─────────────────────────────────────────────────── */
+
+.callout[data-callout="flora-private"] {
+  --callout-color: var(--flora-c-rose);
+  --callout-icon: lucide-lock-keyhole;
+}
+
+.callout[data-callout="flora-empty"] {
+  --callout-color: var(--flora-c-kraft);
+  --callout-icon: lucide-sprout;
+  background: transparent;
+  box-shadow: none;
+  font-style: italic;
+}
+
+.flora-dashboard .callout-title,
+.flora-module .callout-title {
+  font-size: 1.02rem;
+}
+
+.flora-dashboard .task-list-item,
+.flora-module .task-list-item {
+  padding-block: 0.15rem;
+}
+
+/* ── Tabela de progresso: coluna de status como um botão bordado ─────── */
+
+.flora-progress td:nth-child(2) {
+  text-align: center;
+}
+
+.flora-progress td:nth-child(2):not(:empty) {
+  font-weight: 700;
+  color: var(--text-accent);
+}
+
+.flora-progress td:nth-child(3):empty::after {
+  content: "—";
+  color: var(--text-faint);
+}
+
+@media (max-width: 700px) {
+  .flora-dashboard .callout[data-callout^="flora-card"],
+  .flora-module .callout[data-callout^="flora-card"] {
+    display: block;
+    width: 100%;
+    min-height: auto;
+    margin-right: 0;
+  }
+
+  .flora-dashboard h1,
+  .flora-module h1 {
+    font-size: 2.5rem;
+  }
+
+  .flora-dashboard .callout[data-callout="flora-stat"],
+  .flora-module .callout[data-callout="flora-stat"] {
+    width: calc(33.333% - 0.45rem);
+    margin-right: 0.2rem;
+    padding-inline: 0.2rem;
+  }
+
+  .callout[data-callout="flora-stat"] .callout-title {
+    font-size: 1.3rem;
+  }
+}

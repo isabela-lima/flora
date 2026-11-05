@@ -1,0 +1,15 @@
+{
+  "types": {
+    "prova": "date",
+    "data": "date",
+    "ultima_revisao": "date",
+    "proxima_revisao": "date",
+    "dominio": "number",
+    "questoes": "number",
+    "itens": "number",
+    "status": "text",
+    "cssclasses": "multitext",
+    "acertos": "number",
+    "evidencias": "number"
+  }
+}

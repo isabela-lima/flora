@@ -1,127 +1,101 @@
 # Flora 🌸
 
-Monte e automatize sua rotina de estudos para concursos. Você escolhe o
-concurso, diz quanto tempo tem por semana, e o Flora cria um plano até a prova,
-escolhe as aulas de cada dia e agenda as revisões conforme o seu desempenho.
+**Um caderno de estudos para concursos, pronto para usar no Obsidian.** Ele
+organiza o que estudar, quando revisar e onde você erra, com um método baseado
+em pesquisa: recuperação ativa, questões, correção por causa do erro e revisão
+espaçada.
 
-Tudo fica em arquivos Markdown numa pasta sua. Dá para abrir no Obsidian, no VS
-Code, no celular ou em qualquer editor de texto, e qualquer agendador ou
-assistente de IA pode ler e atualizar a rotina pela linha de comando.
+Se quiser, um assistente de IA (Claude ou Codex) faz o trabalho chato por você:
+lê o edital do seu concurso, monta o plano, prepara a aula do dia e registra
+seus resultados.
 
-## Começar em 3 passos
+> [!NOTE]
+> O Flora vem com um módulo de exemplo completo, o concurso da **ALEPA 2026
+> (Analista Legislativo — Programação)**, montado e usado de verdade na
+> preparação da autora. Explore para ver como fica o seu.
 
-Você precisa do [Node.js 22 ou mais novo](https://nodejs.org/) e do
-[Git](https://git-scm.com/).
+## Comece em 5 minutos
 
-**1. Instale**
+**1. Instale o [Obsidian](https://obsidian.md/)** (grátis, para computador e
+celular).
 
-```bash
-git clone https://github.com/isabela-lima/flora.git
-cd flora
-npm install
-npm link
-```
+**2. Baixe o Flora:** na página de
+[**Releases**](https://github.com/isabela-lima/flora/releases/latest), baixe o
+arquivo `flora.zip` e descompacte onde quiser, por exemplo em Documentos.
 
-`npm link` deixa o comando `flora` disponível em qualquer pasta.
+**3. Abra no Obsidian:** escolha **Abrir pasta como cofre** (*Open folder as
+vault*), selecione a pasta do Flora e confie nos plugins quando o Obsidian
+perguntar. Os plugins e o tema já vêm configurados.
 
-**2. Crie seu vault de estudos**
+O Flora abre na página inicial. Clique em **Comece aqui** e escolha como usar.
 
-```bash
-flora iniciar ~/Estudos
-```
+## Três jeitos de usar
 
-O Flora pergunta o concurso, a data de início, as horas por semana e os dias
-em que você estuda. Ele cria:
+| | Como funciona | Precisa de |
+| --- | --- | --- |
+| **1. Só Obsidian** | Você segue o roteiro de aula, registra cada sessão numa nota e o painel mostra as revisões vencidas, o caderno de erros e a contagem até a prova. | nada além do Obsidian |
+| **2. Com assistente de IA** | Você abre a pasta no app do Claude ou do Codex e conversa: `/configurar` monta seu concurso, `/aula` prepara a aula, e o resultado contado no chat é registrado sozinho. | assinatura do Claude ou do ChatGPT |
+| **3. Automático** | A aula fica pronta toda manhã, seguindo os blocos de estudo do seu calendário. | nível 2 e uma automação agendada |
 
-```
-~/Estudos/
-├── flora.json        suas escolhas (concurso, horas, dias)
-├── Concurso.md       cargo, disciplinas, pesos e fontes oficiais
-├── Plano.md          etapas até a prova e tempo por disciplina
-├── Disciplinas/      uma nota por disciplina, com os tópicos do edital
-├── Sessões/          uma nota por sessão estudada
-└── Erros/            erros que podem se repetir
-```
+Passo a passo dentro do vault: `Comece aqui.md`,
+[`Sistema/Usar com um assistente de IA.md`](Sistema/Usar%20com%20um%20assistente%20de%20IA.md) e
+[`Sistema/Automatizar a rotina.md`](Sistema/Automatizar%20a%20rotina.md).
 
-Seu concurso não está na lista? Veja [como adicionar um concurso](CONTRIBUTING.md#adicionar-um-concurso).
-Leva uns 15 minutos com o edital aberto.
+## Comandos do assistente
 
-**3. Estude**
-
-```bash
-cd ~/Estudos
-flora hoje
-```
-
-O comando mostra as revisões vencidas e as aulas do dia, cada uma com um
-roteiro de 45 minutos. Ao terminar, registre o resultado:
-
-```bash
-flora registrar --disciplina "Língua Portuguesa" --topico "Crase" --itens 10 --acertos 7
-```
-
-O Flora salva a sessão, marca o tópico como estudado, recalcula seu domínio da
-disciplina e agenda a próxima revisão:
-
-| Aproveitamento | Próxima revisão |
+| Comando | O que faz |
 | --- | --- |
-| abaixo de 60% | amanhã |
-| de 60% a 79% | em 7 dias |
-| 80% ou mais | em 21 dias |
+| `/configurar` | pergunta seu concurso, encontra o edital e monta o módulo, os painéis e o progresso |
+| `/aula` | prepara a aula do dia, com questões no formato da banca e questões reais |
+| `/registrar` | registra o resultado contado no chat: sessão, erros e próxima revisão |
+| `/plano` | monta o plano até a prova pelas suas horas e pelo seu desempenho |
+| `/banca` | mapeia o estilo e as provas anteriores da banca |
+| `/edital` | confere retificações e o que mudou |
+| `/simulado` | planeja ou corrige um simulado |
+| `/revisao-semanal` | fecha a semana e ajusta o foco |
 
-Rode `flora plano` de vez em quando para redistribuir o tempo pelo seu
-desempenho atual.
+As instruções ficam em [`AGENTS.md`](AGENTS.md) e
+[`Sistema/Agente/`](Sistema/Agente/), em texto aberto: dá para ler, ajustar e usar
+com qualquer assistente.
 
-## Como o plano funciona
-
-1. **Diagnóstico** (cerca de 10% do prazo): uma bateria de questões por
-   disciplina, das que valem mais para as que valem menos, antes de qualquer
-   teoria.
-2. **Estudo e prática**: base curta seguida de prática, tópico por tópico. O
-   tempo de cada disciplina segue o número de questões na prova e aumenta onde
-   seu domínio é menor. As disciplinas se alternam no mesmo dia.
-3. **Revisão e simulados** (os últimos 20%): prática mista, revisões vencidas e
-   um simulado por semana no último dia de estudo.
-
-O método e as pesquisas que o sustentam estão em [docs/metodo.md](docs/metodo.md).
-
-## Automatizar
-
-O Flora não depende de nenhum serviço. Escolha o que preferir:
-
-- **Agendador do sistema:** gere o `Hoje.md` toda manhã com cron ou launchd.
-- **Assistente de IA (Claude, ChatGPT, Codex…):** `flora hoje --json` entrega o dia
-  em formato estruturado, e o assistente registra os resultados com
-  `flora registrar --json`.
-- **Obsidian:** abra a pasta como vault; as notas e links funcionam sem
-  configuração.
-
-Os exemplos prontos estão em [docs/automacao.md](docs/automacao.md).
-
-## Comandos
+## O que vem no vault
 
 ```
-flora concursos                 lista os concursos do catálogo
-flora iniciar [pasta]           cria um vault (interativo ou com --concurso, --inicio, --horas, --dias)
-flora hoje [--salvar] [--json]  revisões vencidas e aulas do dia
-flora registrar ...             salva uma sessão e agenda a revisão
-flora plano                     recalcula Plano.md
-flora validar                   confere fontes e questões versionadas
-flora ajuda                     todas as opções
+Comece aqui.md        primeiros passos
+Home.md               página inicial
+Método de estudo.md   o ciclo de estudo e as pesquisas que o sustentam
+Conventions.md        regras do vault (propriedades, pastas, fontes)
+ALEPA/                módulo de exemplo: edital, banca, fontes e questões
+Templates/            modelos de sessão, erro, simulado e revisão semanal
+Sistema/              guias e instruções do assistente
+Schemas/, Tools/      contratos e validador de fontes e questões
+Private/              seus resultados, erros e planos (criado no primeiro uso)
 ```
 
-Use `--vault <pasta>` para rodar de fora da pasta do vault e `--data AAAA-MM-DD`
-para simular outro dia.
+## Privacidade
+
+Tudo o que é seu fica em `Private/`, que nunca vai para o GitHub (está no
+`.gitignore`). Se for guardar o seu vault no GitHub, use um **repositório
+privado**: forks de repositórios públicos são sempre públicos.
+
+## Cuidados
+
+- O Flora organiza dados públicos dos editais, mas **não substitui o edital
+  vigente**. Sempre confira datas, conteúdo e retificações no site oficial.
+- Questões **autorais** são criadas pelo assistente com fontes citadas; as
+  **reais da banca** apontam para o PDF oficial, sem transcrição.
+- Projeto independente, sem relação com bancas, órgãos ou com as empresas dos
+  assistentes de IA citados.
 
 ## Contribuir
 
-O jeito mais útil de ajudar é **adicionar ou conferir um concurso** no
-catálogo. Também há espaço para código, documentação e adaptadores. Comece pelo
-[CONTRIBUTING.md](CONTRIBUTING.md) e pelo [roadmap](docs/roadmap.md).
-
-> O Flora organiza dados públicos dos editais, mas não substitui o edital
-> vigente. Sempre confira retificações no site oficial do concurso.
+Toda ajuda é bem-vinda, principalmente de quem estuda para concurso: relatar
+onde travou, sugerir melhorias no método, adicionar módulos de outros concursos
+ou melhorar as instruções do assistente. Veja o [CONTRIBUTING.md](CONTRIBUTING.md)
+e as issues marcadas com
+[`good first issue`](https://github.com/isabela-lima/flora/labels/good%20first%20issue).
 
 ## Licença
 
-[MIT](LICENSE).
+[MIT](LICENSE). As fontes do tema têm licença própria (SIL OFL), em
+`.obsidian/themes/Flora/licenses/`.

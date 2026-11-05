@@ -1,0 +1,23 @@
+{
+  "name": "flora-cli",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "flora": "node --import tsx src/cli.ts",
+    "validate": "node --import tsx src/cli.ts validate",
+    "sources": "node --import tsx src/cli.ts sources",
+    "questions": "node --import tsx src/cli.ts questions",
+    "daily-context": "node --import tsx src/cli.ts daily-context",
+    "test": "node --import tsx --test test/*.test.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "26.6.6",
+    "tsx": "4.23.15",
+    "typescript": "7.0.2"
+  },
+  "allowScripts": {
+    "esbuild@0.28.2": true
+  }
+}

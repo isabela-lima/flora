@@ -1,0 +1,518 @@
+/* ==========================================================================
+   FLORA: tema de estudo para o Obsidian (claro + escuro)
+   Inspirado no Meadowsweet: linho cru pela manhã, chalé de musgo à noite.
+   Fonte: src/flora.css → `python3 build.py` → theme.css (com fontes e SVGs embutidos).
+   Componentes de painel (hero, cards, stats) ficam em snippets/flora-hub.css.
+   ========================================================================== */
+
+/* ── Fontes ────────────────────────────────────────────────────────────────
+   Lora e Dancing Script, ambas OFL (licenças em licenses/). Reduzidas aos
+   caracteres latinos e em WOFF2, para o tema carregar rápido no iPhone. */
+@font-face {
+  font-family: 'Flora Serif';
+  src: url("assets/lora.woff2") format("woff2");
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Flora Serif';
+  src: url("assets/lora-italic.woff2") format("woff2");
+  font-weight: 400 700;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Flora Script';
+  src: url("assets/dancing-script.woff2") format("woff2");
+  font-weight: 400 700;
+  font-display: swap;
+}
+
+/* ── Tokens comuns ─────────────────────────────────────────────────────── */
+body {
+  --flora-serif: 'Flora Serif', 'Lora', 'Iowan Old Style', Georgia, serif;
+  --flora-script: 'Flora Script', 'Dancing Script', 'Brush Script MT', cursive;
+
+  --font-text-theme: var(--flora-serif);
+  --font-interface-theme: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif;
+  --font-monospace-theme: 'SF Mono', ui-monospace, 'JetBrains Mono', Menlo, monospace;
+
+  --font-text-size: 16.5px;
+  --line-height-normal: 1.66;
+  --file-line-width: 740px;
+  --radius-s: 6px;
+  --radius-m: 10px;
+  --radius-l: 14px;
+
+  --h1-font: var(--flora-script);
+  --h1-size: 2.5em;
+  --h1-weight: 700;
+  --h1-line-height: 1.1;
+  --h2-size: 1.4em;
+  --h2-weight: 600;
+  --h3-size: 1.17em;
+  --h3-weight: 600;
+  --h4-size: 1em;
+  --h4-weight: 700;
+  --h5-size: 0.92em;
+  --h6-size: 0.88em;
+  --inline-title-font: var(--flora-script);
+  --inline-title-size: 2.5em;
+  --inline-title-weight: 700;
+
+  --tag-radius: 4px;
+  --tag-padding-x: 0.55em;
+  --tag-padding-y: 0.1em;
+  --tag-border-width: 0;
+  --checkbox-radius: 5px;
+  --callout-radius: var(--radius-l);
+  --callout-padding: 0.85rem 1.1rem;
+  --blockquote-border-thickness: 2px;
+  --hr-thickness: 1px;
+
+  --flora-honey: #e3b55c;
+  --flora-tag-ink: #3a2e22;
+}
+
+/* ── Claro: linho cru pela manhã ───────────────────────────────────────── */
+.theme-light {
+  /* Tons "tinta", legíveis sobre linho; os painéis tingem com eles. */
+  --flora-sage-rgb: 74, 103, 65;
+  --flora-rose-rgb: 150, 72, 84;
+  --flora-honey-rgb: 154, 104, 16;
+  --flora-lavender-rgb: 88, 80, 140;
+  --flora-kraft-rgb: 140, 108, 66;
+  --flora-shadow-rgb: 60, 50, 30;
+
+  --flora-sage: #7f9a74;
+  --flora-rose: #d4949c;
+  --flora-kraft: #dcc6a3;
+  --flora-linen: #fbf7ee;
+  --flora-weave: rgba(90, 75, 50, 0.035);
+  --flora-edge: rgba(90, 75, 50, 0.14);
+  --flora-shadow: 0 1px 2px rgba(60, 50, 30, 0.08), 0 8px 22px rgba(60, 50, 30, 0.08);
+  --flora-wash-opacity: 1;
+  --flora-header-art: url("assets/header-light-still.svg");
+
+  --background-primary: #f3eee4;
+  --background-primary-alt: #fbf7ee;
+  --background-secondary: #ebe5d8;
+  --background-secondary-alt: #e3dccc;
+  --background-modifier-border: #ddd4c2;
+  --background-modifier-border-hover: #cbbfa8;
+  --background-modifier-border-focus: rgba(var(--flora-sage-rgb), 0.5);
+  --background-modifier-hover: rgba(var(--flora-sage-rgb), 0.08);
+  --background-modifier-active-hover: rgba(var(--flora-sage-rgb), 0.14);
+  --background-modifier-form-field: #fbf7ee;
+
+  --text-normal: #33302a;
+  --text-muted: #6f685c;
+  --text-faint: #a59d8e;
+  --text-accent: #4a6741;
+  --text-accent-hover: #3a5333;
+  --text-on-accent: #fbf7ee;
+  --interactive-accent: #5f7a55;
+  --interactive-accent-hover: #4a6741;
+  --text-highlight-bg: rgba(227, 181, 92, 0.38);
+  --text-selection: rgba(212, 148, 156, 0.35);
+
+  --h1-color: #4a6741;
+  --h2-color: #33302a;
+  --h3-color: #763d45;
+  --h4-color: #4a6741;
+  --bold-color: #2a2722;
+  --italic-color: #4a456c;
+
+  --code-background: #ece6d8;
+  --code-normal: #5a4632;
+  --table-header-background: rgba(220, 198, 163, 0.32);
+  --table-row-alt-background: rgba(90, 75, 50, 0.025);
+
+  --color-red-rgb: 143, 29, 33;
+  --color-orange-rgb: 176, 98, 40;
+  --color-yellow-rgb: 154, 104, 16;
+  --color-green-rgb: 63, 107, 58;
+  --color-cyan-rgb: 64, 112, 112;
+  --color-blue-rgb: 72, 94, 132;
+  --color-purple-rgb: 88, 80, 140;
+  --color-pink-rgb: 150, 72, 84;
+}
+
+/* ── Escuro: chalé de musgo ao entardecer ──────────────────────────────── */
+.theme-dark {
+  --flora-sage-rgb: 185, 214, 168;
+  --flora-rose-rgb: 240, 191, 196;
+  --flora-honey-rgb: 240, 200, 150;
+  --flora-lavender-rgb: 207, 200, 232;
+  --flora-kraft-rgb: 210, 185, 145;
+  --flora-shadow-rgb: 0, 0, 0;
+
+  --flora-sage: #9fbb92;
+  --flora-rose: #d99aa3;
+  --flora-kraft: #bfa57f;
+  --flora-linen: #22261e;
+  --flora-weave: rgba(255, 245, 220, 0.025);
+  --flora-edge: rgba(255, 245, 220, 0.07);
+  --flora-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 10px 26px rgba(0, 0, 0, 0.4);
+  --flora-wash-opacity: 0.55;
+  --flora-header-art: url("assets/header-dark-still.svg");
+
+  --background-primary: #171a15;
+  --background-primary-alt: #22261e;
+  --background-secondary: #0f110e;
+  --background-secondary-alt: #1d2019;
+  --background-modifier-border: #2c3127;
+  --background-modifier-border-hover: #3a4033;
+  --background-modifier-border-focus: rgba(var(--flora-sage-rgb), 0.5);
+  --background-modifier-hover: rgba(var(--flora-sage-rgb), 0.07);
+  --background-modifier-active-hover: rgba(var(--flora-sage-rgb), 0.12);
+  --background-modifier-form-field: #1d2019;
+
+  --text-normal: #ece6d8;
+  --text-muted: #b0a993;
+  --text-faint: #6f6b5e;
+  --text-accent: #c9dcb4;
+  --text-accent-hover: #dceacb;
+  --text-on-accent: #171a15;
+  --interactive-accent: #9fbb92;
+  --interactive-accent-hover: #b6cfa8;
+  --text-highlight-bg: rgba(240, 200, 150, 0.26);
+  --text-selection: rgba(217, 154, 163, 0.3);
+
+  --h1-color: #c9dcb4;
+  --h2-color: #ece6d8;
+  --h3-color: #f0bfc4;
+  --h4-color: #c9dcb4;
+  --bold-color: #f6f1e4;
+  --italic-color: #cfc8e8;
+
+  --code-background: #22261e;
+  --code-normal: #f0c896;
+  --table-header-background: rgba(191, 165, 127, 0.12);
+  --table-row-alt-background: rgba(255, 245, 220, 0.02);
+
+  --color-red-rgb: 244, 163, 168;
+  --color-orange-rgb: 240, 180, 130;
+  --color-yellow-rgb: 240, 200, 150;
+  --color-green-rgb: 185, 220, 176;
+  --color-cyan-rgb: 160, 210, 205;
+  --color-blue-rgb: 170, 190, 225;
+  --color-purple-rgb: 207, 200, 232;
+  --color-pink-rgb: 240, 191, 196;
+}
+
+/* Cores nomeadas derivadas das RGB acima (callouts, gráfico, Bases). */
+.theme-light,
+.theme-dark {
+  --color-red: rgb(var(--color-red-rgb));
+  --color-orange: rgb(var(--color-orange-rgb));
+  --color-yellow: rgb(var(--color-yellow-rgb));
+  --color-green: rgb(var(--color-green-rgb));
+  --color-cyan: rgb(var(--color-cyan-rgb));
+  --color-blue: rgb(var(--color-blue-rgb));
+  --color-purple: rgb(var(--color-purple-rgb));
+  --color-pink: rgb(var(--color-pink-rgb));
+  --color-accent: var(--interactive-accent);
+
+  --link-color: var(--text-accent);
+  --link-color-hover: var(--text-accent-hover);
+  --link-decoration: underline;
+  --link-decoration-hover: underline;
+  --link-decoration-thickness: 1px;
+  --link-external-color: var(--text-accent);
+  --link-unresolved-color: var(--text-muted);
+  --link-unresolved-opacity: 0.85;
+  --link-unresolved-decoration-style: dashed;
+
+  --tag-background: var(--flora-kraft);
+  --tag-background-hover: var(--flora-kraft);
+  --tag-color: var(--flora-tag-ink);
+  --tag-color-hover: var(--flora-tag-ink);
+
+  --blockquote-border-color: var(--flora-sage);
+  --blockquote-background-color: rgba(var(--flora-sage-rgb), 0.06);
+  --hr-color: rgba(var(--flora-sage-rgb), 0.4);
+  --checkbox-color: var(--interactive-accent);
+  --checkbox-color-hover: var(--interactive-accent-hover);
+  --checkbox-border-color: rgba(var(--flora-sage-rgb), 0.55);
+  --checkbox-marker-color: var(--text-on-accent);
+  --table-border-color: var(--flora-edge);
+
+  --nav-item-color-active: var(--text-accent);
+  --nav-item-background-active: rgba(var(--flora-sage-rgb), 0.12);
+  --nav-item-weight-active: 600;
+
+  --graph-node: var(--text-muted);
+  --graph-node-focused: var(--text-accent);
+  --graph-node-tag: rgb(var(--flora-rose-rgb));
+  --graph-node-attachment: rgb(var(--flora-honey-rgb));
+  --graph-line: var(--background-modifier-border-hover);
+
+  scrollbar-color: rgba(var(--flora-sage-rgb), 0.35) transparent;
+}
+
+.theme-dark .markdown-rendered a.tag,
+.theme-dark .cm-hashtag {
+  --flora-tag-ink: #241c13;
+}
+
+::selection {
+  background: var(--text-selection);
+}
+
+/* ── A toalha: trama de linho com aquarelas nos cantos ─────────────────────
+   Fica atrás da nota e não rola com ela, como uma toalha sob o caderno. */
+.workspace-leaf-content[data-type='markdown'] .view-content {
+  position: relative;
+  background-color: var(--background-primary);
+  background-image:
+    repeating-linear-gradient(0deg, var(--flora-weave) 0 1px, transparent 1px 3px),
+    repeating-linear-gradient(90deg, var(--flora-weave) 0 1px, transparent 1px 3px);
+}
+.workspace-leaf-content[data-type='markdown'] .view-content::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: var(--flora-wash-opacity);
+  background:
+    url("assets/wash-sage.svg") -110px -120px / 300px 300px no-repeat,
+    url("assets/wash-rose.svg") calc(100% + 120px) calc(100% + 110px) / 320px 320px no-repeat;
+}
+.workspace-leaf-content[data-type='markdown'] :is(.markdown-preview-view, .markdown-source-view, .cm-scroller) {
+  background-color: transparent;
+}
+
+/* ── Títulos ───────────────────────────────────────────────────────────── */
+.inline-title,
+.markdown-rendered h1,
+.HyperMD-header-1 {
+  letter-spacing: 0;
+}
+
+/* H2: linha bordada, como uma costura sob o título */
+.markdown-rendered h2 {
+  padding-bottom: 0.3em;
+  border-bottom: 1.5px dashed rgba(var(--flora-sage-rgb), 0.45);
+}
+
+.markdown-rendered h3,
+.HyperMD-header-3 {
+  font-style: italic;
+}
+
+/* H4–H6: versalete espaçado, como os nomes do Paperback */
+.markdown-rendered :is(h4, h5, h6),
+:is(.HyperMD-header-4, .HyperMD-header-5, .HyperMD-header-6) {
+  font-variant: small-caps;
+  letter-spacing: 0.08em;
+}
+.markdown-rendered :is(h5, h6) {
+  color: var(--text-muted);
+}
+
+/* ── Texto ─────────────────────────────────────────────────────────────── */
+.markdown-rendered a,
+.cm-s-obsidian span.cm-hmd-internal-link .cm-underline {
+  text-decoration-color: rgba(var(--flora-rose-rgb), 0.55);
+  text-underline-offset: 0.2em;
+}
+.markdown-rendered a:hover {
+  text-decoration-color: currentColor;
+}
+
+.markdown-rendered mark,
+.cm-s-obsidian .cm-highlight {
+  border-radius: 3px;
+  padding: 0.05em 0.15em;
+}
+
+.markdown-rendered code,
+.cm-s-obsidian span.cm-inline-code {
+  border-radius: var(--radius-s);
+  padding: 0.1em 0.35em;
+  font-size: 0.86em;
+}
+
+.markdown-rendered pre {
+  border: 1px solid var(--flora-edge);
+  border-radius: var(--radius-m);
+}
+
+.markdown-rendered blockquote {
+  border-left-style: dashed;
+  border-radius: 0 var(--radius-m) var(--radius-m) 0;
+  padding: 0.45em 1em;
+  font-style: italic;
+}
+
+/* Quebra de seção: uma florzinha sobre uma linha bordada */
+.markdown-rendered hr {
+  border: 0;
+  height: 22px;
+  margin: 2em 0;
+  background:
+    url("assets/bloom.svg") center / 22px 22px no-repeat,
+    linear-gradient(90deg, transparent, rgba(var(--flora-sage-rgb), 0.45) 25%, transparent 45%, transparent 55%, rgba(var(--flora-sage-rgb), 0.45) 75%, transparent) center / 100% 1px no-repeat;
+}
+
+/* Tags: etiquetas de papel kraft com o furinho do barbante */
+.markdown-rendered a.tag {
+  position: relative;
+  padding-left: 1.15em;
+  font-style: italic;
+  text-decoration: none;
+  clip-path: polygon(0.55em 0, 100% 0, 100% 100%, 0.55em 100%, 0 50%);
+  border-radius: 0 var(--tag-radius) var(--tag-radius) 0;
+}
+.markdown-rendered a.tag::before {
+  content: '';
+  position: absolute;
+  left: 0.5em;
+  top: 50%;
+  width: 0.28em;
+  height: 0.28em;
+  margin-top: -0.14em;
+  border-radius: 50%;
+  background: var(--background-primary);
+}
+
+/* ── Tabelas: um cartão de linho (progresso, simulados) ────────────────── */
+.markdown-rendered table {
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1px solid var(--flora-edge);
+  border-radius: var(--radius-m);
+  overflow: hidden;
+  background: var(--background-primary-alt);
+  box-shadow: var(--flora-shadow);
+  font-size: 0.93em;
+}
+.markdown-rendered :is(th, td) {
+  border: 0;
+  border-bottom: 1px dashed var(--flora-edge);
+  padding: 0.5em 0.85em;
+}
+.markdown-rendered tr:last-child td {
+  border-bottom: 0;
+}
+.markdown-rendered th {
+  font-variant: small-caps;
+  letter-spacing: 0.06em;
+  font-weight: 600;
+  color: var(--text-muted);
+  border-bottom: 1.5px dashed rgba(var(--flora-sage-rgb), 0.4);
+}
+.markdown-rendered tbody tr:nth-child(even) {
+  background: var(--table-row-alt-background);
+}
+.markdown-rendered tbody tr:hover {
+  background: var(--background-modifier-hover);
+}
+
+/* ── Tarefas ───────────────────────────────────────────────────────────── */
+.markdown-rendered .task-list-item.is-checked {
+  color: var(--text-faint);
+  text-decoration: line-through;
+  text-decoration-color: rgba(var(--flora-sage-rgb), 0.6);
+}
+
+/* ── Callouts: cartões de linho com ponto-corrido bordado por dentro ────── */
+.callout {
+  position: relative;
+  border: 0;
+  background:
+    linear-gradient(rgba(var(--callout-color), 0.07), rgba(var(--callout-color), 0.07)),
+    var(--background-primary-alt);
+  box-shadow: 0 0 0 1px var(--flora-edge), var(--flora-shadow);
+}
+.callout::after {
+  content: '';
+  position: absolute;
+  inset: 5px;
+  border: 1.5px dashed rgba(var(--callout-color), 0.4);
+  border-radius: calc(var(--callout-radius) - 4px);
+  pointer-events: none;
+}
+.callout-title {
+  font-weight: 600;
+}
+
+/* ── Propriedades: uma etiqueta presa no topo ──────────────────────────── */
+.metadata-container {
+  border-radius: var(--radius-m);
+  background: var(--background-primary-alt);
+  box-shadow: 0 0 0 1px var(--flora-edge);
+  padding: 0.45rem 0.7rem;
+}
+.metadata-property-key {
+  color: var(--text-muted);
+  font-variant: small-caps;
+  letter-spacing: 0.04em;
+}
+
+/* ── Interface ─────────────────────────────────────────────────────────── */
+.workspace-ribbon,
+.workspace-tab-header-container,
+.workspace-split.mod-left-split .workspace-tabs .workspace-leaf,
+.workspace-split.mod-right-split .workspace-tabs .workspace-leaf {
+  border-color: transparent;
+}
+
+.nav-file-title,
+.nav-folder-title {
+  border-radius: var(--radius-s);
+}
+
+/* Cabeçalho da barra lateral: faixa de flores silvestres (claro) ou
+   vaga-lumes ao entardecer (escuro), igual ao painel do Meadowsweet. */
+.workspace-split.mod-left-split .workspace-tab-header-container {
+  background:
+    linear-gradient(90deg, var(--background-secondary) 10%, transparent 75%),
+    var(--flora-header-art) center / cover no-repeat;
+}
+
+/* Pastas principais com um botão de cor, como linhas de bordado. */
+.nav-folder-title:is([data-path='ALEPA'], [data-path='Private'], [data-path='Templates']) {
+  font-weight: 600;
+}
+.nav-folder-title:is([data-path='ALEPA'], [data-path='Private'], [data-path='Templates'])::after {
+  content: '';
+  flex: none;
+  width: 7px;
+  height: 7px;
+  margin-left: 0.5em;
+  border-radius: 50%;
+  align-self: center;
+}
+.nav-folder-title[data-path='ALEPA']::after {
+  background: var(--flora-sage);
+}
+.nav-folder-title[data-path='Private']::after {
+  background: var(--flora-rose);
+}
+.nav-folder-title[data-path='Templates']::after {
+  background: var(--flora-kraft);
+}
+.nav-folder-title[data-path='Templates'] {
+  color: var(--text-muted);
+}
+
+/* ── iPhone ────────────────────────────────────────────────────────────── */
+.is-mobile {
+  --font-text-size: 16px;
+  --file-line-width: 100%;
+}
+.is-mobile .markdown-rendered table {
+  font-size: 0.85em;
+}
+.is-phone .workspace-leaf-content[data-type='markdown'] .view-content::before {
+  background-size: 200px 200px, 220px 220px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
+}

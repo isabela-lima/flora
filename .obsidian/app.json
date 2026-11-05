@@ -1,0 +1,23 @@
+{
+  "alwaysUpdateLinks": true,
+  "newLinkFormat": "shortest",
+  "useMarkdownLinks": false,
+  "newFileLocation": "folder",
+  "newFileFolderPath": "Private",
+  "attachmentFolderPath": "Private/Anexos",
+  "trashOption": "local",
+  "promptDelete": true,
+  "showUnsupportedFiles": false,
+  "readableLineLength": true,
+  "showInlineTitle": true,
+  "propertiesInDocument": "visible",
+  "foldHeading": true,
+  "foldIndent": true,
+  "showLineNumber": false,
+  "spellcheck": true,
+  "autoPairBrackets": true,
+  "autoPairMarkdown": true,
+  "smartIndentList": true,
+  "livePreview": true,
+  "defaultViewMode": "source"
+}

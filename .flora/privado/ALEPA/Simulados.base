@@ -1,0 +1,41 @@
+filters:
+  and:
+    - file.inFolder("Private/ALEPA/Simulados")
+    - tipo == "simulado"
+formulas:
+  aproveitamento: if(itens && acertos >= 0, (acertos / itens * 100).round())
+  faixa: 'if(itens && acertos >= 0, if(formula.aproveitamento >= 80, "🌸 manter", if(formula.aproveitamento >= 60, "🌿 revisão curta", "🌱 retomar base")), "")'
+properties:
+  file.name:
+    displayName: Simulado
+  note.formato:
+    displayName: Formato
+  note.status:
+    displayName: Status
+  note.data:
+    displayName: Data
+  note.itens:
+    displayName: Itens
+  note.acertos:
+    displayName: Acertos
+  formula.aproveitamento:
+    displayName: Aproveitamento (%)
+  formula.faixa:
+    displayName: Decisão
+  note.tempo:
+    displayName: Tempo
+views:
+  - type: table
+    name: Agenda e resultados
+    order:
+      - file.name
+      - note.formato
+      - note.status
+      - note.itens
+      - note.acertos
+      - formula.aproveitamento
+      - formula.faixa
+      - note.tempo
+    sort:
+      - property: note.data
+        direction: ASC

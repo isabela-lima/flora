@@ -1,0 +1,29 @@
+filters:
+  and:
+    - file.inFolder("Private/ALEPA/Disciplinas")
+formulas:
+  etapa: 'if(status == "diagnosticar", "🌱 diagnosticar", if(status == "estudar", "📖 estudar", if(status == "praticar", "✏️ praticar", if(status == "revisar", "🔁 revisar", if(status == "manutenção", "🌸 manutenção", status)))))'
+  peso: (questoes / 50 * 100).round()
+properties:
+  file.name:
+    displayName: Disciplina
+  formula.etapa:
+    displayName: Etapa
+  note.dominio:
+    displayName: Domínio (0–5)
+  note.questoes:
+    displayName: Questões
+  formula.peso:
+    displayName: Peso (%)
+views:
+  - type: table
+    name: Cobertura
+    order:
+      - file.name
+      - formula.etapa
+      - note.dominio
+      - note.questoes
+      - formula.peso
+    sort:
+      - property: note.questoes
+        direction: DESC
