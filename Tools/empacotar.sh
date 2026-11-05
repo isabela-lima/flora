@@ -5,7 +5,11 @@ set -euo pipefail
 
 raiz="$(cd "$(dirname "$0")/.." && pwd)"
 saida="$raiz/dist"
-pasta="$saida/Flora"
+# Monta numa pasta temporária: se o vault estiver aberto no Obsidian, ele
+# regrava arquivos como workspace.json enquanto o zip é montado.
+trabalho="$(mktemp -d)"
+trap 'rm -rf "$trabalho"' EXIT
+pasta="$trabalho/Flora"
 
 # id do plugin | repositório | versão | licença
 plugins=(
@@ -14,8 +18,7 @@ plugins=(
   "obsidian-icon-folder|FlorianWoelki/obsidian-iconize|2.14.7|MIT"
 )
 
-rm -rf "$saida"
-mkdir -p "$pasta"
+mkdir -p "$saida" "$pasta"
 
 # Só o que está versionado no Git, sem ferramentas de desenvolvimento.
 git -C "$raiz" archive HEAD | tar -x -C "$pasta"
@@ -45,5 +48,6 @@ for item in "${plugins[@]}"; do
   printf '%s %s — %s — https://github.com/%s\n' "$id" "$versao" "$licenca" "$repo" >>"$pasta/.obsidian/plugins/CREDITOS.txt"
 done
 
-(cd "$saida" && zip -qr flora.zip Flora)
+rm -f "$saida/flora.zip"
+(cd "$trabalho" && zip -qr "$saida/flora.zip" Flora)
 echo "Pronto: $saida/flora.zip"
