@@ -13,6 +13,10 @@ seus resultados.
 > O Flora vem com um módulo de exemplo completo, o concurso da **ALEPA 2026
 > (Analista Legislativo — Programação)**, montado e usado de verdade na
 > preparação da autora. Explore para ver como fica o seu.
+>
+> **Versão inicial (v0.1).** A estrutura e a rotina funcionam; estudar antes do
+> edital, vários concursos ao mesmo tempo e guias com capturas de tela estão no
+> [roadmap](ROADMAP.md).
 
 ## Comece em 5 minutos
 
